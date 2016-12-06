@@ -6,3 +6,6 @@ before_install:
   - mvn install -f diskcache -DskipTests
   - git clone https://github.com/jjYBdx4IL/github-utils
   - mvn install -f github-utils -DskipTests
+env:
+  - PUBLIC_CI=true
+
