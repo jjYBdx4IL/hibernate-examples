@@ -4,8 +4,6 @@ import com.github.jjYBdx4IL.utils.env.Maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -15,8 +13,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import org.apache.commons.io.FileUtils;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -26,10 +22,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author Github jjYBdx4IL Projects
  */
-public class ProgrammaticDerbyExampleTest {
+public class ProgrammaticH2ExampleTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProgrammaticDerbyExampleTest.class);
-    private static final String DB_LOCATION = Utils.quoteDbName(new File(Maven.getMavenTargetDir(), ProgrammaticDerbyExampleTest.class.getSimpleName() + ".derby")
+    private static final Logger LOG = LoggerFactory.getLogger(ProgrammaticH2ExampleTest.class);
+    private static final String DB_LOCATION = Utils.quoteDbName(new File(Maven.getMavenTargetDir(), ProgrammaticH2ExampleTest.class.getSimpleName() + ".h2")
             .getAbsolutePath());
 
     @BeforeClass
@@ -39,11 +35,12 @@ public class ProgrammaticDerbyExampleTest {
 
     @Test
     public void test() throws IOException {
+        // http://www.h2database.com/html/cheatSheet.html
         Map<String, String> props = new HashMap<>();
-        props.put("javax.persistence.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
-        props.put("javax.persistence.jdbc.url", "jdbc:derby:" + DB_LOCATION + ";create=true");
-//        props.put("javax.persistence.jdbc.user", "root");
-//        props.put("javax.persistence.jdbc.password", "root");
+        props.put("javax.persistence.jdbc.driver", "org.h2.Driver");
+        props.put("javax.persistence.jdbc.url", "jdbc:h2:" + DB_LOCATION);
+//        props.put("javax.persistence.jdbc.user", "sa");
+//        props.put("javax.persistence.jdbc.password", "");
         props.put("hibernate.hbm2ddl.auto", "create");
         props.put("hibernate.show_sql", "true");
 
@@ -66,13 +63,6 @@ public class ProgrammaticDerbyExampleTest {
 
         em.close();
         emf.close();
-
-        try {
-            DriverManager.getConnection("jdbc:derby:" + DB_LOCATION + ";shutdown=true");
-            fail();
-        } catch (SQLException ex) {
-            FileUtils.deleteDirectory(new File(DB_LOCATION));
-        }
     }
 
 }
