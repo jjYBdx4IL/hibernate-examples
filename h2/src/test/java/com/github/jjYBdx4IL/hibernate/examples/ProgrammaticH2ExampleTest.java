@@ -1,5 +1,8 @@
 package com.github.jjYBdx4IL.hibernate.examples;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +21,21 @@ public class ProgrammaticH2ExampleTest extends TestBase {
         props.put("javax.persistence.jdbc.url", "jdbc:h2:" + DB_LOCATION);
 //        props.put("javax.persistence.jdbc.user", "sa");
 //        props.put("javax.persistence.jdbc.password", "");
+    }
+
+    // each persistence unit is only using entities from its own module
+    @Test
+    public void testMultiplePersistenceXMLsInDIfferentPackages() {
+        createEmfEmTx("h2PU");
+
+        try {
+            SomeEntity test = em.find(SomeEntity.class, 3);
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+
+        SomeH2Entity test = em.find(SomeH2Entity.class, 1);
+        assertNull(test);
     }
 
 }

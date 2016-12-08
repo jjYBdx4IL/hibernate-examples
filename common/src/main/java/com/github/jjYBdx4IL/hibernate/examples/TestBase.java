@@ -31,28 +31,44 @@ public class TestBase {
             .getAbsolutePath());
 
     protected final Map<String, String> props = new HashMap<>();
-    protected EntityManagerFactory emf;
-    protected EntityManager em;
-    protected EntityTransaction tx;
+    protected EntityManagerFactory emf = null;
+    protected EntityManager em = null;
+    protected EntityTransaction tx = null;
 
     protected TestBase() {
         props.put("hibernate.hbm2ddl.auto", "create");
         props.put("hibernate.show_sql", "true");
     }
 
-    @Before
-    public void before() {
-        LOG.info("creating emf and em");
-        emf = Persistence.createEntityManagerFactory("test", props);
+    protected void createEmfEmTx(String puName) {
+        closeEmfEm();
+        LOG.info("creating emf and em for PU " + puName);
+        emf = Persistence.createEntityManagerFactory(puName, props);
         em = emf.createEntityManager();
         tx = em.getTransaction();
     }
 
+    protected void closeEmfEm() {
+        if (em != null) {
+            LOG.info("closing em");
+            em.close();
+            em = null;
+        }
+        if (emf != null) {
+            LOG.info("closing emf");
+            emf.close();
+            emf = null;
+        }
+    }
+
+    @Before
+    public void before() {
+        createEmfEmTx("commonPU");
+    }
+
     @After
     public void after() {
-        LOG.info("closing em and emf");
-        em.close();
-        emf.close();
+        closeEmfEm();
     }
 
     @Test
