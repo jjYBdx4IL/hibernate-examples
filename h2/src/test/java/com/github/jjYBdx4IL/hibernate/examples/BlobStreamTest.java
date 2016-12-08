@@ -31,6 +31,7 @@ public class BlobStreamTest extends H2TestBase {
         sb.append("7878");
         byte[] data = sb.toString().getBytes();
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
+
         Session session = (Session) em.getDelegate();
         Blob blob = Hibernate.getLobCreator(session).createBlob(bais, data.length);
 

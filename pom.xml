@@ -12,6 +12,7 @@
         <module>common</module>
         <module>derby</module>
         <module>h2</module>
+        <module>staticmetamodel</module>
     </modules>
 
 </project>
