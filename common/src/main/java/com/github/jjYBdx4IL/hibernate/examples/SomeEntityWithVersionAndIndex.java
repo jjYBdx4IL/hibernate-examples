@@ -21,21 +21,32 @@ public class SomeEntityWithVersionAndIndex {
 
     @Id
     @GeneratedValue
-    public int id;
+    int id;
 
     @Basic
     @Column(name="DATA")
-    public String data;
+    String data;
 
     @Basic
     @Column(name="DATA2")
-    public String data2;
+    String data2;
 
     @Version
-    public long version;
+    long version;
 
-    @Override
-    public String toString() {
-        return "SomeEntityWithVersionAndIndex{" + "id=" + id + ", data=" + data + ", data2=" + data2 + ", version=" + version + '}';
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SomeEntityWithVersionAndIndex [id=");
+		builder.append(id);
+		builder.append(", data=");
+		builder.append(data);
+		builder.append(", data2=");
+		builder.append(data2);
+		builder.append(", version=");
+		builder.append(version);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

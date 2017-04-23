@@ -14,8 +14,8 @@ import javax.persistence.Table;
 public class SomeEntity {
 
   @Id
-  public int id;
+  int id;
 
   @Basic
-  public String data;
+  String data;
 }

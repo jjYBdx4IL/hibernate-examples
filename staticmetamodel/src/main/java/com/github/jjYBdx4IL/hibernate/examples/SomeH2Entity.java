@@ -20,10 +20,10 @@ public class SomeH2Entity {
 
     @Id
     @GeneratedValue
-    public int id;
+    int id;
 
     @Basic
-    public String data;
+    String data;
 
     public static TypedQuery<SomeH2Entity> getByDataQuery(EntityManager em, String data) {
         final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();

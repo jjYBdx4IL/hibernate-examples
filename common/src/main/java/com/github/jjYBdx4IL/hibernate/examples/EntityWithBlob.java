@@ -18,15 +18,16 @@ public class EntityWithBlob {
 
     @Id
     @GeneratedValue
-    public long id;
+    long id;
 
     @Basic
     @Column(nullable = false, unique = true, length = 1024)
-    public String key;
+    String key;
 
     @Basic
-    public Blob value;
+    Blob value;
 
     @Version
-    public long version;
+    long version;
+
 }

@@ -14,8 +14,8 @@ public class SomeH2Entity {
 
     @Id
     @GeneratedValue
-    public int id;
+    int id;
 
     @Basic
-    public String data;
+    String data;
 }

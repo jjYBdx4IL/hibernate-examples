@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 public class TestBase {
 
     private static final Logger LOG = LoggerFactory.getLogger(TestBase.class);
-    protected static final String DB_LOCATION = Utils.quoteDbName(new File(Maven.getMavenTargetDir(), TestBase.class.getSimpleName() + ".db")
-            .getAbsolutePath());
+    protected static final String DB_LOCATION = new File(Maven.getMavenTargetDir(), TestBase.class.getSimpleName() + ".db")
+            .getAbsolutePath();
 
     protected final Map<String, String> props = new HashMap<>();
     protected EntityManagerFactory emf = null;
@@ -36,6 +36,7 @@ public class TestBase {
     protected EntityTransaction tx = null;
 
     protected TestBase() {
+    	LOG.info("DB_LOCATION: " + DB_LOCATION);
         props.put("hibernate.hbm2ddl.auto", "create");
         props.put("hibernate.show_sql", "true");
     }
