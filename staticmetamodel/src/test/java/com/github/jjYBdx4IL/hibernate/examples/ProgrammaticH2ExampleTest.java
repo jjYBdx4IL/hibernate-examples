@@ -28,7 +28,7 @@ public class ProgrammaticH2ExampleTest extends H2TestBase {
         em.persist(a);
         tx.commit();
 
-        TypedQuery<SomeH2Entity> query = SomeH2Entity.getByDataQuery(em, "test");
+        TypedQuery<SomeH2Entity> query = QueryFactory.getByDataQuery(em, "test");
         List<SomeH2Entity> result = query.getResultList();
 
         assertEquals(1, result.size());

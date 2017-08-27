@@ -17,6 +17,60 @@
         <url>https://github.com/jjYBdx4IL</url>
     </organization>
         
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile1</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <includes>
+                                <include>**/examples/*</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/QueryFactory*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <compilerArgument>-proc:none</compilerArgument>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/annotations</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+        
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -28,12 +82,12 @@
             <artifactId>hibernate-jpamodelgen</artifactId>
             <!-- only needed during compilation -->
             <scope>provided</scope>
-            <version>5.2.5.Final</version>
+            <version>5.2.10.Final</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.193</version>
+            <version>1.4.196</version>
         </dependency>
     </dependencies>
 </project>

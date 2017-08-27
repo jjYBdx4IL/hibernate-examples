@@ -25,14 +25,4 @@ public class SomeH2Entity {
     @Basic
     String data;
 
-    public static TypedQuery<SomeH2Entity> getByDataQuery(EntityManager em, String data) {
-        final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        final CriteriaQuery<SomeH2Entity> criteriaQuery = criteriaBuilder.createQuery(SomeH2Entity.class);
-        final Root<SomeH2Entity> userRoot = criteriaQuery.from(SomeH2Entity.class);
-        Predicate predicateEmail = criteriaBuilder.equal(
-                userRoot.get(SomeH2Entity_.data),
-                data);
-        criteriaQuery.where(predicateEmail);
-        return em.createQuery(criteriaQuery);
-    }
 }
