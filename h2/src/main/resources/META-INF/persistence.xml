@@ -6,7 +6,8 @@
     <!-- one needs to define at least an empty persistence unit for JPA -->
     <persistence-unit name="h2PU">
         <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
-        <!--<class>com.github.jjYBdx4IL.hibernate.examples.SomeEntity</class>-->
+<!--         <class>com.github.jjYBdx4IL.hibernate.examples.SomeEntity</class> -->
+        <class>com.github.jjYBdx4IL.hibernate.examples.SomeEntityWithVersionAndIndex</class>
         <!--<properties>-->
             <!--<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>-->
             <!--

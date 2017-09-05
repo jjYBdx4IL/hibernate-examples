@@ -28,4 +28,6 @@ public class ProgrammaticDerbyExampleTest extends TestBase {
 //        props.put("javax.persistence.jdbc.user", "root");
 //        props.put("javax.persistence.jdbc.password", "root");
     }
+    
+    
 }

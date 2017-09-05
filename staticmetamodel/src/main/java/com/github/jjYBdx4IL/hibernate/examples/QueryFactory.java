@@ -9,15 +9,20 @@ import javax.persistence.criteria.Root;
 
 public class QueryFactory {
 
-    public static TypedQuery<SomeH2Entity> getByDataQuery(EntityManager em, String data) {
-        final CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        final CriteriaQuery<SomeH2Entity> criteriaQuery = criteriaBuilder.createQuery(SomeH2Entity.class);
-        final Root<SomeH2Entity> userRoot = criteriaQuery.from(SomeH2Entity.class);
-        Predicate predicateEmail = criteriaBuilder.equal(
-                userRoot.get(SomeH2Entity_.data),
-                data);
-        criteriaQuery.where(predicateEmail);
-        return em.createQuery(criteriaQuery);
+    public static TypedQuery<SomeH2EntityB> getByDataQuery(EntityManager em, String data) {
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<SomeH2EntityB> cq = cb.createQuery(SomeH2EntityB.class);
+        final Root<SomeH2EntityB> userRoot = cq.from(SomeH2EntityB.class);
+        cq.where(cb.equal(userRoot.get(SomeH2EntityB_.data), data));
+        return em.createQuery(cq);
     }
-	
+
+    public static TypedQuery<SomeH2EntityB> prefixMatch(EntityManager em, String prefix) {
+        final CriteriaBuilder cb = em.getCriteriaBuilder();
+        final CriteriaQuery<SomeH2EntityB> cq = cb.createQuery(SomeH2EntityB.class);
+        final Root<SomeH2EntityB> root = cq.from(SomeH2EntityB.class);
+        cq.where(cb.like(cb.lower(root.get(SomeH2EntityB_.data)), prefix.toLowerCase() + "%"));
+        return em.createQuery(cq);
+    }
+    
 }

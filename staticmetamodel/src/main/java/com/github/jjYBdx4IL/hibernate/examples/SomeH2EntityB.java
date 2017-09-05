@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root;
  * @author Github jjYBdx4IL Projects
  */
 @Entity
-public class SomeH2Entity {
+public class SomeH2EntityB {
 
     @Id
     @GeneratedValue
@@ -25,4 +25,10 @@ public class SomeH2Entity {
     @Basic
     String data;
 
+    @Override
+    public String toString() {
+        return "SomeH2EntityB [id=" + id + ", data=" + data + "]";
+    }
+
+    
 }

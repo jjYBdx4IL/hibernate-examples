@@ -1,7 +1,5 @@
 package com.github.jjYBdx4IL.hibernate.examples;
 
-import static com.github.jjYBdx4IL.hibernate.examples.TestBase.DB_LOCATION;
-
 /**
  *
  * @author Github jjYBdx4IL Projects

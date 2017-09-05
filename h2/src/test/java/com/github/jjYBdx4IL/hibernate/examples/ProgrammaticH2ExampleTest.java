@@ -2,9 +2,11 @@ package com.github.jjYBdx4IL.hibernate.examples;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
+import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  *
@@ -12,15 +14,16 @@ import org.slf4j.LoggerFactory;
  */
 public class ProgrammaticH2ExampleTest extends H2TestBase {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProgrammaticH2ExampleTest.class);
+    public ProgrammaticH2ExampleTest() {
+        puName = "h2PU";
+    }
 
     // each persistence unit is only using entities from its own module
-    // (that is why we need at least one persistence.xml specifying the PU's name in each package that
+    // (that is why we need at least one persistence.xml specifying the PU's
+    // name in each package that
     // is holding persistence entitiee)
     @Test
     public void testMultiplePersistenceXMLsInDifferentPackages() {
-        createEmfEmTx("h2PU");
-
         try {
             SomeEntity test = em.find(SomeEntity.class, 3);
             fail();
@@ -31,4 +34,8 @@ public class ProgrammaticH2ExampleTest extends H2TestBase {
         assertNull(test);
     }
 
+    @Ignore
+    @Override
+    public void commonTest() throws IOException {
+    }
 }

@@ -34,6 +34,7 @@ public class TestBase {
     protected EntityManagerFactory emf = null;
     protected EntityManager em = null;
     protected EntityTransaction tx = null;
+    protected String puName = "commonPU";
 
     protected TestBase() {
     	LOG.info("DB_LOCATION: " + DB_LOCATION);
@@ -44,7 +45,7 @@ public class TestBase {
         }
     }
 
-    protected void createEmfEmTx(String puName) {
+    protected void createEmfEmTx() {
         closeEmfEm();
         LOG.info("creating emf and em for PU " + puName);
         emf = Persistence.createEntityManagerFactory(puName, props);
@@ -67,7 +68,7 @@ public class TestBase {
 
     @Before
     public void before() {
-        createEmfEmTx("commonPU");
+        createEmfEmTx();
     }
 
     @After
@@ -121,5 +122,6 @@ public class TestBase {
         assertEquals(1, test2.id);
         assertEquals(1, test2.version);
     }
+
 
 }
