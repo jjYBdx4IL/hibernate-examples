@@ -39,6 +39,9 @@ public class TestBase {
     	LOG.info("DB_LOCATION: " + DB_LOCATION);
         props.put("hibernate.hbm2ddl.auto", "create");
         props.put("hibernate.show_sql", "true");
+        if (props.get("hibernate.cache.use_second_level_cache") == null) {
+            props.put("hibernate.cache.use_second_level_cache", "false");
+        }
     }
 
     protected void createEmfEmTx(String puName) {
