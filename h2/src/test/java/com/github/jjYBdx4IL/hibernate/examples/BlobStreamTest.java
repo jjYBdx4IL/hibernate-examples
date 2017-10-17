@@ -10,7 +10,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.junit.Test;
+
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assume.assumeTrue;
+
+import com.github.jjYBdx4IL.utils.env.Surefire;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,9 +28,11 @@ public class BlobStreamTest extends H2TestBase {
     private static final Logger LOG = LoggerFactory.getLogger(BlobStreamTest.class);
 
     /**
-     * as of JPA 2.1, there seems to be no JPA-compliant way of accessing Lobs through streams, so we have to
-     * use a provider dependent way to avoid storing large data chunks in memory:
+     * as of JPA 2.1, there seems to be no JPA-compliant way of accessing Lobs
+     * through streams, so we have to use a provider dependent way to avoid
+     * storing large data chunks in memory:
      */
+    @Test
     public void testBlobStream() throws SQLException, IOException {
         StringBuilder sb = new StringBuilder();
         sb.append("7878");
@@ -51,4 +58,30 @@ public class BlobStreamTest extends H2TestBase {
         assertArrayEquals(data, baos.toByteArray());
     }
 
+    @Test
+    public void testBlobStreamCompact() throws SQLException, IOException {
+        assumeTrue(Surefire.isSingleTestExecution());
+
+        byte[] data = new byte[1048576];
+        
+        for (int i = 0; i < 1000; i++) {
+            ByteArrayInputStream bais = new ByteArrayInputStream(data);
+
+            Session session = (Session) em.getDelegate();
+            Blob blob = Hibernate.getLobCreator(session).createBlob(bais, data.length);
+
+            EntityWithBlob ewb = new EntityWithBlob();
+            ewb.key = "123" + i;
+            ewb.value = blob;
+            tx.begin();
+            em.persist(ewb);
+            tx.commit();
+        }
+        tx.begin();
+        em.createNativeQuery("delete from EntityWithBlob").executeUpdate();
+        tx.commit();
+        tx.begin();
+        em.createNativeQuery("SHUTDOWN COMPACT").executeUpdate();
+        tx.commit();
+    }
 }
