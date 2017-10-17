@@ -12,6 +12,7 @@
         <module>common</module>
         <module>derby</module>
         <module>h2</module>
+        <module>hsql</module>
         <module>staticmetamodel</module>
     </modules>
 
