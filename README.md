@@ -1,8 +1,12 @@
-# hibernate-examples
+# Hibernate Examples
 
 I prefer H2 to Derby because the Derby devs refused to add 'DROP TABLE ... IF EXISTS' semantics despite many user complaints simply because it is not part of some SQL standard.That, however, clutters tests with useless SQLExceptions when instantiating tables.
 
 In addition to that, H2 also does not create log files (derby.log) by default in random directories like the current working directory.
+
+## Second Level Caching And Statistics Gathering
+
+The H2 and HSQL examples include second level caching and use statistics functionality to verify its operation.
 
 ## Update
 
@@ -20,3 +24,8 @@ HSQL connection url to use MVCC/serializable isolation:
 --
 [![Build Status](https://travis-ci.org/jjYBdx4IL/hibernate-examples.png?branch=master)](https://travis-ci.org/jjYBdx4IL/hibernate-examples)
 devel/java/github/hibernate-examples@7185
+
+
+--
+[![Build Status](https://travis-ci.org/jjYBdx4IL/hibernate-examples.png?branch=master)](https://travis-ci.org/jjYBdx4IL/hibernate-examples)
+devel/java/github/hibernate-examples@7840

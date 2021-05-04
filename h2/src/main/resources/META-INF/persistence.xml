@@ -5,19 +5,41 @@
              version="2.0">
     <!-- one needs to define at least an empty persistence unit for JPA -->
     <persistence-unit name="h2PU">
-        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
-<!--         <class>com.github.jjYBdx4IL.hibernate.examples.SomeEntity</class> -->
         <class>com.github.jjYBdx4IL.hibernate.examples.SomeEntityWithVersionAndIndex</class>
-        <!--<properties>-->
-            <!--<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>-->
-            <!--
-              if you don't have a database already created
-              append ;create=true to end of the jdbc url
-            -->
-            <!--<property name="javax.persistence.jdbc.url" value="jdbc:derby:test;create=true"/>-->
-            <!--<property name="javax.persistence.jdbc.user" value="root"/>-->
-            <!--<property name="javax.persistence.jdbc.password" value="root"/>-->
-            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
-        <!--</properties>-->
+    </persistence-unit>
+    
+    <persistence-unit name="xmlonlyPU">
+    	<jar-file>../common/target/common-1.0-SNAPSHOT.jar</jar-file>
+    	<properties>
+    		<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+	    	<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+	    	<!-- db gets dropped as soon as that last connection goes away: -->
+	    	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:"/>
+    		<property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+    	</properties>
+    </persistence-unit>
+    
+    <persistence-unit name="xmlonlyCachePU">
+    	<jar-file>../common/target/common-1.0-SNAPSHOT.jar</jar-file>
+    	<properties>
+    		<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+	    	<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+	    	<!-- db gets dropped as soon as that last connection goes away: -->
+	    	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:"/>
+    		<property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
+            
+            <!-- enable caching -->
+            <property name="hibernate.cache.use_second_level_cache" value="true"/>
+            <property name="hibernate.cache.use_query_cache" value="true"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.jcache.JCacheRegionFactory"/>
+            <property name="hibernate.javax.cache.provider" value="org.ehcache.jsr107.EhcacheCachingProvider"/>
+            <property name="hibernate.javax.cache.missing_cache_strategy" value="create-warn"/>
+            <!-- "Only by specifying the second property hibernate.javax.cache.uri will you be able to have a CacheManager per SessionFactory." -->
+            <property name="hibernate.javax.cache.uri" value="file:target/classes/ehcache.xml"/>
+            <!-- enabling stats allows us to verify cache operation -->
+            <property name="hibernate.generate_statistics" value="true"/>
+    	</properties>
     </persistence-unit>
 </persistence>
