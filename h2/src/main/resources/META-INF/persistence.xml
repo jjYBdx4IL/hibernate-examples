@@ -16,6 +16,7 @@
 	    	<!-- db gets dropped as soon as that last connection goes away: -->
 	    	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:"/>
     		<property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
             <property name="hibernate.show_sql" value="true"/>
     	</properties>
     </persistence-unit>
@@ -28,6 +29,7 @@
 	    	<!-- db gets dropped as soon as that last connection goes away: -->
 	    	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:"/>
     		<property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
             <property name="hibernate.show_sql" value="true"/>
             
             <!-- enable caching -->
